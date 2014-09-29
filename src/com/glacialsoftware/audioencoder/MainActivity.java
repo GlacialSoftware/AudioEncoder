@@ -234,9 +234,9 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 			List<String> cmd = new ArrayList<String>();
 			cmd.add(controller.getBinaryPath());
 			
-			cmd.add("-encoders");
+			//cmd.add("-encoders");
 			
-			/*
+			
 			
 			cmd.add("-i");
 			cmd.add(filePathFragment.getInputPath());
@@ -244,7 +244,7 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 			formatOptionsFragment.getArgs(cmd);
 			
 			cmd.add(filePathFragment.getOutputPath());
-			*/
+			
 	
 			String total="";
 			for (String s : cmd){
