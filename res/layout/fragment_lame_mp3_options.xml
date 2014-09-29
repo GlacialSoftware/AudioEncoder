@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+        <TextView
+            android:id="@+id/lameMp3Mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/lameMp3BitrateMode"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/mode"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    
+        <RadioGroup
+	        android:id="@+id/lameMp3BitrateMode"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentRight="true"
+	        android:paddingTop="5dp"
+	        android:layout_toRightOf="@+id/lameMp3Mode"
+	        android:orientation="horizontal" >
+
+	        <RadioButton
+	            android:id="@+id/lameMp3Vbr"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/radio_vbr" 
+	            android:textSize="15sp"/>
+	
+	        <RadioButton
+	            android:id="@+id/lameMp3Cbr"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/radio_cbr" 
+	            android:textSize="15sp"/>
+	        
+	        <RadioButton
+	            android:id="@+id/lameMp3Abr"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/radio_abr" 
+	            android:textSize="15sp"/>
+                
+   	 	</RadioGroup>
+
+        <TextView
+            android:id="@+id/lameMp3ModeFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/lameMp3Mode"
+            android:gravity="center_vertical"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/lameMp3BitrateProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:layout_alignBottom="@+id/lameMp3ModeFull"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/lameMp3BitrateMode"
+            android:layout_toRightOf="@+id/lameMp3ModeFull"
+			android:gravity="center_vertical"
+			android:textSize="15sp"/>
+
+        <SeekBar
+            android:id="@+id/lameMp3BitrateSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/lameMp3ModeFull" />
+
+        <TextView
+            android:id="@+id/lameMp3BitrateLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/lameMp3BitrateSeekBar"
+            android:gravity="center_vertical|left"
+            android:textSize="12sp"
+            android:text="@string/bitrate_low" />
+
+        <TextView
+            android:id="@+id/lameMp3BitrateHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/lameMp3BitrateSeekBar"
+            android:layout_toRightOf="@+id/lameMp3BitrateLow"
+            android:layout_alignBottom="@+id/lameMp3BitrateLow"
+            android:gravity="center_vertical|right"
+            android:textSize="12sp"
+            android:text="@string/bitrate_high" />
+        
+		<TextView
+            android:id="@+id/lameMp3AlgorithmQuality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingTop="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/lameMp3BitrateLow"
+            android:gravity="center_vertical"
+            android:text="@string/algorithm_quality"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/lameMp3AlgorithmProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:layout_alignBottom="@+id/lameMp3AlgorithmQuality"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/lameMp3BitrateLow"
+            android:layout_toRightOf="@+id/lameMp3AlgorithmQuality"
+			android:gravity="center_vertical"
+			android:textSize="15sp"/>
+
+        <SeekBar
+            android:id="@+id/lameMp3AlgorithmQualitySeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/lameMp3AlgorithmQuality"
+            android:max="9" />
+
+        <TextView
+            android:id="@+id/lameMp3AlgorithmLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/lameMp3AlgorithmQualitySeekBar"
+            android:gravity="center_vertical|left"
+            android:textSize="12sp"
+            android:text="@string/algorithm_low" />
+
+        <TextView
+            android:id="@+id/lameMp3AlgorithmHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/lameMp3AlgorithmQualitySeekBar"
+            android:layout_toRightOf="@+id/lameMp3AlgorithmLow"
+            android:layout_alignBottom="@+id/lameMp3AlgorithmLow"
+            android:gravity="center_vertical|right"
+            android:textSize="12sp"
+            android:text="@string/algorithm_high" />
+
+        <TextView
+            android:id="@+id/lameMp3SampleRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/lameMp3SampleRateSpinner"
+            android:layout_below="@+id/lameMp3AlgorithmLow"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="@string/audio_sample_rate" />
+
+        <Spinner
+            android:id="@+id/lameMp3SampleRateSpinner"
+            android:paddingTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lameMp3AlgorithmLow"
+            android:layout_toRightOf="@+id/lameMp3SampleRate"
+            android:paddingRight="8dp" />
+
+        <TextView
+            android:id="@+id/lameMp3Channels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/lameMp3ChannelsSpinner"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/lameMp3SampleRate"
+            android:layout_below="@+id/lameMp3SampleRate"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/audio_channels"
+            android:textSize="16sp" />
+        
+		<Spinner
+            android:id="@+id/lameMp3ChannelsSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_below="@+id/lameMp3SampleRateSpinner"
+            android:layout_toRightOf="@+id/lameMp3Channels"
+            android:layout_alignRight="@+id/lameMp3SampleRateSpinner" />
+
+</RelativeLayout>

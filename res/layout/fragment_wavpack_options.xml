@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+        <TextView
+            android:id="@+id/wavpackCompressionLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            android:text="@string/compression_level" />
+
+        <TextView
+            android:id="@+id/wavpackCompressionProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:layout_alignBottom="@+id/wavpackCompressionLevel"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/wavpackCompressionLevel"
+			android:gravity="center_vertical"
+			android:textSize="15sp"/>
+
+        <SeekBar
+            android:id="@+id/wavpackCompressionLevelSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/wavpackCompressionLevel"
+            android:max="8" />
+
+        <TextView
+            android:id="@+id/wavpackCompressionLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/wavpackCompressionLevelSeekBar"
+            android:gravity="center_vertical|left"
+            android:textSize="12sp"
+            android:text="@string/compression_low" />
+
+        <TextView
+            android:id="@+id/wavpackCompressionHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/wavpackCompressionLevelSeekBar"
+            android:layout_toRightOf="@+id/wavpackCompressionLow"
+            android:layout_alignBottom="@+id/wavpackCompressionLow"
+            android:gravity="center_vertical|right"
+            android:textSize="12sp"
+            android:text="@string/compression_high" />
+
+        <TextView
+            android:id="@+id/wavpackSampleRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/wavpackSampleRateSpinner"
+            android:layout_below="@+id/wavpackCompressionLow"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="@string/audio_sample_rate" />
+
+        <Spinner
+            android:id="@+id/wavpackSampleRateSpinner"
+            android:paddingTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wavpackCompressionLow"
+            android:layout_toRightOf="@+id/wavpackSampleRate"
+            android:paddingRight="8dp" />
+
+        <TextView
+            android:id="@+id/wavpackChannels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/wavpackChannelsSpinner"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/wavpackSampleRate"
+            android:layout_below="@+id/wavpackSampleRate"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/audio_channels"
+            android:textSize="16sp" />
+        
+		<Spinner
+            android:id="@+id/wavpackChannelsSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_below="@+id/wavpackSampleRateSpinner"
+            android:layout_toRightOf="@+id/wavpackChannels"
+            android:layout_alignRight="@+id/wavpackSampleRateSpinner" />
+
+</RelativeLayout>

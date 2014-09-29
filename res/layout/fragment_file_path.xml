@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:id="@+id/filePathRelativeLayout">
+    
+    <TextView
+        android:id="@+id/processingMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/processingModeRadioGroup"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/processing_mode"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:visibility="gone" />
+
+    <RadioGroup
+        android:id="@+id/processingModeRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/processingMode"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp" 
+        android:visibility="gone" >
+
+        <RadioButton
+            android:id="@+id/singleFileRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSingleFileRadioClicked"
+            android:text="@string/radio_single_file" 
+            android:textSize="15sp"/>
+
+        <RadioButton
+            android:id="@+id/batchRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onBatchRadioClicked"
+            android:text="@string/radio_batch" 
+            android:textSize="15sp"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/inputFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/inputBrowser"
+        android:layout_alignTop="@+id/inputBrowser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/outputFile"
+        android:gravity="center_vertical"
+        android:text="@string/input_file"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/inputFilePath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/inputBrowser"
+        android:layout_alignTop="@+id/inputBrowser"
+        android:layout_toLeftOf="@+id/inputBrowser"
+        android:layout_toRightOf="@+id/inputFile"
+        android:textSize="15sp"
+        android:singleLine="true"
+        android:inputType="textFilter"
+        android:hint="@string/input_file_hint" />
+
+    <ImageButton
+        android:id="@+id/inputBrowser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/processingModeRadioGroup"
+        android:src="@drawable/ic_chooser"
+        android:contentDescription="@string/input_browser_description"
+        android:onClick="onInputBrowserClicked"
+        style="?android:attr/borderlessButtonStyle" />
+    
+	<TextView
+	    android:id="@+id/outputFile"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBottom="@+id/outputBrowser"
+	    android:layout_alignTop="@+id/outputBrowser"
+	    android:layout_alignParentLeft="true"
+	    android:gravity="center_vertical"
+	    android:text="@string/output_file"
+	    android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/outputFilePath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+	    android:layout_alignBottom="@+id/outputBrowser"
+	    android:layout_alignTop="@+id/outputBrowser"
+        android:layout_toLeftOf="@+id/outputBrowser"
+        android:layout_toRightOf="@+id/outputFile"
+        android:hint="@string/output_file_hint"
+        android:singleLine="true"
+        android:inputType="textFilter"
+        android:textSize="15sp" />
+
+    <ImageButton
+        android:id="@+id/outputBrowser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/inputBrowser"
+        android:src="@drawable/ic_chooser"
+        android:contentDescription="@string/output_browser_description" 
+        android:onClick="onOutputBrowserClicked"
+        style="?android:attr/borderlessButtonStyle"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/outputFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/formatSpinner"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/outputFile"
+        android:gravity="center_vertical"
+        android:text="@string/output_format"
+        android:textSize="16sp"
+        android:paddingRight="5dp" />
+
+    <Spinner
+        android:id="@+id/formatSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/outputFile"
+        android:layout_toRightOf="@+id/outputFormat" />
+
+    <TextView
+        android:id="@+id/loss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/formatSpinner"
+        android:layout_alignBottom="@+id/formatSpinner"
+        android:layout_below="@+id/outputFilePath"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textSize="16sp" />
+
+</RelativeLayout>

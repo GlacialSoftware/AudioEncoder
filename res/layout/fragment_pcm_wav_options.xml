@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+        <TextView
+            android:id="@+id/pcmWavBitDepth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/pcmWavSampleRate"
+            android:layout_alignBottom="@+id/pcmWavBitDepthSpinner"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="@string/bit_depth" />
+
+        <Spinner
+            android:id="@+id/pcmWavBitDepthSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/pcmWavBitDepth"
+            android:paddingRight="8dp"
+            android:paddingTop="5dp" />
+
+        <TextView
+            android:id="@+id/pcmWavSampleRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/pcmWavSampleRateSpinner"
+            android:layout_below="@+id/pcmWavBitDepth"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="@string/audio_sample_rate" />
+
+        <Spinner
+            android:id="@+id/pcmWavSampleRateSpinner"
+            android:paddingTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pcmWavBitDepth"
+            android:layout_toRightOf="@+id/pcmWavSampleRate"
+            android:layout_alignRight="@+id/pcmWavBitDepthSpinner"
+            android:paddingRight="8dp" />
+
+        <TextView
+            android:id="@+id/pcmWavChannels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/pcmWavChannelsSpinner"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/pcmWavSampleRate"
+            android:layout_below="@+id/pcmWavSampleRate"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/audio_channels"
+            android:textSize="16sp" />
+        
+		<Spinner
+            android:id="@+id/pcmWavChannelsSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_below="@+id/pcmWavSampleRateSpinner"
+            android:layout_toRightOf="@+id/pcmWavChannels"
+            android:layout_alignRight="@+id/pcmWavBitDepthSpinner" />
+
+</RelativeLayout>

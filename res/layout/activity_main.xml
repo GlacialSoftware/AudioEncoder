@@ -1,0 +1,33 @@
+   
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true" >
+   
+    <LinearLayout 
+        android:id="@+id/frme_container_linear_layout"
+		android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true" 
+        android:focusable="true" >
+
+	    <FrameLayout
+	        android:id="@+id/file_frame"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	        
+	    <FrameLayout
+	        android:id="@+id/format_frame"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+    
+		<FrameLayout
+	        android:id="@+id/encode_progress_frame"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	    	
+    </LinearLayout>
+	    
+</ScrollView>

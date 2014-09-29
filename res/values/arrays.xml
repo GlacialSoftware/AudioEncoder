@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+	<string-array name="formats_array">
+        <item>aac</item>
+        <item>flac</item>
+        <item>mp3 [Lame]</item>
+        <item>wav [PCM]</item>
+        <item>wv  [WavPack]</item>
+    </string-array>
+    
+	<string-array name="lame_mp3_sample_rates">
+        <item>Source</item>
+        <item>8000 Hz</item>
+        <item>11025 Hz</item>
+        <item>12000 Hz</item>
+        <item>16000 Hz</item>
+        <item>22050 Hz</item>
+        <item>24000 Hz</item>
+        <item>32000 Hz</item>
+        <item>44100 Hz</item>
+        <item>48000 Hz</item>
+    </string-array>
+    
+	<string-array name="audio_channels">
+        <item>Source</item>
+        <item>Mono</item>
+        <item>Stereo</item>
+    </string-array>
+		
+	<string-array name="aac_sample_rates_full">
+        <item>Source</item>
+        <item>8000 Hz</item>
+        <item>11025 Hz</item>
+        <item>12000 Hz</item>
+        <item>16000 Hz</item>
+        <item>22050 Hz</item>
+        <item>24000 Hz</item>
+        <item>32000 Hz</item>
+        <item>44100 Hz</item>
+        <item>48000 Hz</item>
+        <item>64000 Hz</item>
+        <item>88200 Hz</item>
+        <item>96000 Hz</item>
+    </string-array>
+    
+	<string-array name="aac_sample_rates_vbr_stereo">
+        <item>Source</item>
+        <item>11025 Hz</item>
+        <item>12000 Hz</item>
+        <item>16000 Hz</item>
+        <item>22050 Hz</item>
+        <item>24000 Hz</item>
+        <item>32000 Hz</item>
+        <item>44100 Hz</item>
+        <item>48000 Hz</item>
+        <item>64000 Hz</item>
+        <item>88200 Hz</item>
+        <item>96000 Hz</item>
+    </string-array>
+    
+	<string-array name="aac_sample_rates_vbr_mono">
+        <item>Source</item>
+        <item>22050 Hz</item>
+        <item>24000 Hz</item>
+        <item>32000 Hz</item>
+        <item>44100 Hz</item>
+        <item>48000 Hz</item>
+        <item>64000 Hz</item>
+        <item>88200 Hz</item>
+        <item>96000 Hz</item>
+    </string-array>
+	
+	<string-array name="flac_sample_rates">
+        <item>Source</item>
+        <item>32000 Hz</item>
+        <item>44100 Hz</item>
+        <item>48000 Hz</item>
+        <item>88200 Hz</item>
+        <item>96000 Hz</item>
+        <item>192000 Hz</item>
+    </string-array>
+    
+	<string-array name="pcm_wav_sample_rates">
+        <item>Source</item>
+        <item>8000 Hz</item>
+        <item>11025 Hz</item>
+        <item>12000 Hz</item>
+        <item>16000 Hz</item>
+        <item>22050 Hz</item>
+        <item>24000 Hz</item>
+        <item>32000 Hz</item>
+        <item>44100 Hz</item>
+        <item>48000 Hz</item>
+        <item>64000 Hz</item>
+        <item>88200 Hz</item>
+        <item>96000 Hz</item>
+        <item>192000 Hz</item>
+    </string-array>
+    
+	<string-array name="wav_pcm_bit_depth">
+        <item>8 bit</item>
+        <item>8 bit A-law</item>
+		<item>8 bit mu-law</item>
+        <item>16 bit</item>
+        <item>24 bit</item>
+        <item>32 bit</item>
+        <item>32 bit float</item>
+		<item>64 bit float</item>
+    </string-array>
+    
+</resources>

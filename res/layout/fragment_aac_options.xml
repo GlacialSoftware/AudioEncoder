@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>	
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    
+        <TextView
+            android:id="@+id/aacMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/aacBitrateMode"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/mode"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    
+       <RadioGroup
+	        android:id="@+id/aacBitrateMode"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentRight="true"
+	        android:paddingTop="5dp"
+	        android:layout_toRightOf="@+id/aacMode"
+	        android:orientation="horizontal" >
+
+	        <RadioButton
+	            android:id="@+id/aacVbr"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/radio_vbr" 
+	            android:textSize="15sp"/>
+	
+	        <RadioButton
+	            android:id="@+id/aacCbr"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/radio_cbr" 
+	            android:textSize="15sp"/>
+	        
+                
+   	 	</RadioGroup>
+
+        <TextView
+            android:id="@+id/aacModeFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/aacMode"
+            android:gravity="center_vertical"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/aacBitrateProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:layout_alignBottom="@+id/aacModeFull"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/aacBitrateMode"
+            android:layout_toRightOf="@+id/aacModeFull"
+			android:gravity="center_vertical"
+			android:textSize="15sp"/>
+
+        <SeekBar
+            android:id="@+id/aacBitrateSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/aacModeFull" />
+
+        <TextView
+            android:id="@+id/aacBitrateLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/aacBitrateSeekBar"
+            android:gravity="center_vertical|left"
+            android:textSize="12sp"
+            android:text="@string/bitrate_low" />
+
+        <TextView
+            android:id="@+id/aacBitrateHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/aacBitrateSeekBar"
+            android:layout_toRightOf="@+id/aacBitrateLow"
+            android:layout_alignBottom="@+id/aacBitrateLow"
+            android:gravity="center_vertical|right"
+            android:textSize="12sp"
+            android:text="@string/bitrate_high" />
+        
+		<TextView
+            android:id="@+id/aacAlgorithmQuality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingTop="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/aacBitrateLow"
+            android:gravity="center_vertical"
+            android:text="@string/coding_method"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/aacAlgorithmProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:layout_alignBottom="@+id/aacAlgorithmQuality"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/aacBitrateLow"
+            android:layout_toRightOf="@+id/aacAlgorithmQuality"
+			android:gravity="center_vertical"
+			android:textSize="15sp"/>
+
+        <SeekBar
+            android:id="@+id/aacAlgorithmQualitySeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/aacAlgorithmQuality"
+            android:max="3" />
+
+        <TextView
+            android:id="@+id/aacAlgorithmLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/aacAlgorithmQualitySeekBar"
+            android:gravity="center_vertical|left"
+            android:textSize="12sp"
+            android:text="@string/algorithm_low" />
+
+        <TextView
+            android:id="@+id/aacAlgorithmHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/aacAlgorithmQualitySeekBar"
+            android:layout_toRightOf="@+id/aacAlgorithmLow"
+            android:layout_alignBottom="@+id/aacAlgorithmLow"
+            android:gravity="center_vertical|right"
+            android:textSize="12sp"
+            android:text="@string/algorithm_high" />
+
+        <TextView
+            android:id="@+id/aacSampleRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/aacSampleRateSpinner"
+            android:layout_below="@+id/aacAlgorithmLow"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="@string/audio_sample_rate" />
+
+        <Spinner
+            android:id="@+id/aacSampleRateSpinner"
+            android:paddingTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/aacAlgorithmLow"
+            android:layout_toRightOf="@+id/aacSampleRate"
+            android:paddingRight="8dp" />
+
+        <TextView
+            android:id="@+id/aacChannels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/aacChannelsSpinner"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/aacSampleRate"
+            android:layout_below="@+id/aacSampleRate"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/audio_channels"
+            android:textSize="16sp" />
+        
+		<Spinner
+            android:id="@+id/aacChannelsSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_below="@+id/aacSampleRateSpinner"
+            android:layout_toRightOf="@+id/aacChannels"
+            android:layout_alignRight="@+id/aacSampleRateSpinner" />
+
+</RelativeLayout>

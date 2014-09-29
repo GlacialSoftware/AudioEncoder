@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+        <TextView
+            android:id="@+id/flacCompressionLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            android:text="@string/compression_level" />
+
+        <TextView
+            android:id="@+id/flacCompressionProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:layout_alignBottom="@+id/flacCompressionLevel"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/flacCompressionLevel"
+			android:gravity="center_vertical"
+			android:textSize="15sp"/>
+
+        <SeekBar
+            android:id="@+id/flacCompressionLevelSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/flacCompressionLevel"
+            android:max="8" />
+
+        <TextView
+            android:id="@+id/flacCompressionLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/flacCompressionLevelSeekBar"
+            android:gravity="center_vertical|left"
+            android:textSize="12sp"
+            android:text="@string/compression_low" />
+
+        <TextView
+            android:id="@+id/flacCompressionHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/flacCompressionLevelSeekBar"
+            android:layout_toRightOf="@+id/flacCompressionLow"
+            android:layout_alignBottom="@+id/flacCompressionLow"
+            android:gravity="center_vertical|right"
+            android:textSize="12sp"
+            android:text="@string/compression_high" />
+
+        <TextView
+            android:id="@+id/flacSampleRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/flacSampleRateSpinner"
+            android:layout_below="@+id/flacCompressionLow"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="@string/audio_sample_rate" />
+
+        <Spinner
+            android:id="@+id/flacSampleRateSpinner"
+            android:paddingTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/flacCompressionLow"
+            android:layout_toRightOf="@+id/flacSampleRate"
+            android:paddingRight="8dp" />
+
+        <TextView
+            android:id="@+id/flacChannels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/flacChannelsSpinner"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/flacSampleRate"
+            android:layout_below="@+id/flacSampleRate"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/audio_channels"
+            android:textSize="16sp" />
+        
+		<Spinner
+            android:id="@+id/flacChannelsSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_below="@+id/flacSampleRateSpinner"
+            android:layout_toRightOf="@+id/flacChannels"
+            android:layout_alignRight="@+id/flacSampleRateSpinner" />
+
+</RelativeLayout>

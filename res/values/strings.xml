@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Audio Encoder</string>
+    <string name="action_settings">Settings</string>
+    <string name="radio_single_file">Single file</string>
+    <string name="radio_batch">Batch</string>
+    <string name="processing_mode">Processing mode:</string>
+    <string name="input_file">Input:</string>
+    <string name="output_file">Output:</string>
+    <string name="input_file_hint">Input file path</string>
+    <string name="output_file_hint">Output file path</string>
+    <string name="input_browser_description">Browse for input path</string>
+    <string name="output_browser_description">Browse for output path</string>
+    <string name="output_format">Format:</string>
+    <string name="radio_vbr">VBR</string>
+    <string name="radio_cbr">CBR</string>
+    <string name="radio_abr">ABR</string>
+    <string name="mode">Mode:</string>
+    <string name="bitrate_low">Small file, low quality</string>
+    <string name="bitrate_high">Large file, high quality</string>
+    <string name="algorithm_quality">Algorithm quality:</string>
+	<string name="algorithm_low">Fast encode, low quality</string>
+    <string name="algorithm_high">Slow encode, high quality</string>
+    <string name="audio_sample_rate">Sample rate:</string>
+    <string name="audio_channels">Channels:</string>
+    <string name="button_encode">Encode</string>
+    <string name="encode_cancel_description">Cancel current encoding operation</string>
+    <string name="coding_method">Coding method:</string>
+	<string name="compression_level">Compression level:</string>
+	<string name="compression_high">Highest compression, slow</string>
+	<string name="compression_low">Lowest compression, fast</string>
+	<string name="bit_depth">Bit depth:</string>
+	
+</resources>

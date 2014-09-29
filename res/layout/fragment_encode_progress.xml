@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent" >
+    
+	<Button
+        android:id="@+id/encodeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:onClick="onEncodeClicked"
+        android:text="@string/button_encode" 
+        style="?android:attr/borderlessButtonStyle" />
+	
+	<RelativeLayout
+	     android:layout_width="match_parent"
+   		 android:layout_height="match_parent" 
+   		 android:background="@color/transparent">
+   		 
+	    <ProgressBar
+	        android:id="@+id/encodeProgressBar"
+	        style="?android:attr/progressBarStyleHorizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignTop="@+id/encodeCancel"
+	        android:layout_toLeftOf="@+id/encodeCancel"
+	        android:max="100"
+	        android:visibility="invisible" />
+	    
+		<ImageButton
+	        android:id="@+id/encodeCancel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentRight="true"
+	        android:src="@drawable/ic_cancel"
+	        android:contentDescription="@string/encode_cancel_description"
+	        android:onClick="onCancelClicked" 
+	        style="?android:attr/borderlessButtonStyle"
+	        android:visibility="invisible"/>
+		
+	</RelativeLayout>
+
+</RelativeLayout>
