@@ -64,6 +64,7 @@ public class EncodeTask implements Runnable{
 					break;
 				case AFFECT_CANCEL: 
 					affectCancel();
+					break;
 				}
 			}
 		};
@@ -141,7 +142,8 @@ public class EncodeTask implements Runnable{
 			public void processComplete(int exitValue) {
 			
 				Log.d("processComplete",Integer.toString(exitValue));
-		}};
+			}
+		};
 		
 		try {
 			process=controller.execFFMPEG(cmd,sc);

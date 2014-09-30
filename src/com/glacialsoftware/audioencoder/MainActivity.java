@@ -7,13 +7,16 @@ import java.util.List;
 
 import org.ffmpeg.android.FfmpegController;
 
+import com.glacialsoftware.audioencoder.LicenseDialogFragment.Licenses;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,12 +27,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity implements FilePathFragment.FilePathCallbacks,
-													  EncodeTask.EncodeTaskCallbacks{
+													  EncodeTask.EncodeTaskCallbacks,
+													  AudioEncoderPreferenceFragment.PreferenceCallbacks{
 	
 	private static final int SINGLE_FILE_INPUT_CHOOSER = 1001;
 	private static final int SINGLE_FILE_OUTPUT_CHOOSER = 1010;
-	private static final int BATCH_INPUT_CHOOSER = 1101;
-	private static final int BATCH_OUTPUT_CHOOSER = 1110;
+	//private static final int BATCH_INPUT_CHOOSER = 1101;
+	//private static final int BATCH_OUTPUT_CHOOSER = 1110;
 	
 	private static FfmpegController controller = null;
 	private static EncodeTask encodeTask=null;
@@ -38,17 +42,28 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 	
 	public static boolean shouldCancel=false;
 	public static boolean imminentOptionsRestore=false;
+	public static String currentTheme="Light";
 	
 	private FilePathFragment filePathFragment;
 	private FormatOptionsFragment formatOptionsFragment;
 	private EncodeProgressFragment encodeProgressFragment;
+	private AudioEncoderPreferenceFragment audioEncoderPreferenceFragment;
 	
 	public enum FileFormat{AAC,FLAC,LAME_MP3,VORBIS_OGG,PCM_WAVE,WAVPACK}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		String theme=PreferenceManager.getDefaultSharedPreferences(this).getString("theme_select", "Light");
+		if (theme.equals("Light")){
+			setTheme(R.style.lightTheme);
+			currentTheme=theme;
+		} else {
+			setTheme(R.style.darkTheme);
+			currentTheme=theme;
+		}
 		
+		
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
 		if (controller==null){
@@ -86,6 +101,7 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.filePathRelativeLayout);
 		
 		if (relativeLayout==null){
+			audioEncoderPreferenceFragment=new AudioEncoderPreferenceFragment();
 			filePathFragment= FilePathFragment.newInstance(state);
 			encodeProgressFragment=new EncodeProgressFragment();
 			FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -114,6 +130,7 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.filePathRelativeLayout);
 		
 		if (relativeLayout==null){
+			audioEncoderPreferenceFragment=new AudioEncoderPreferenceFragment();
 			filePathFragment= FilePathFragment.newInstance(state);
 			encodeProgressFragment=new EncodeProgressFragment();
 			FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -148,6 +165,16 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			if (!audioEncoderPreferenceFragment.isVisible()){
+				getFragmentManager().executePendingTransactions();
+				if (formatOptionsFragment==null){
+					return true;
+				}
+				FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+				fragmentTransaction.add(R.id.main_activity_container, audioEncoderPreferenceFragment);
+				fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.commit();
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -212,15 +239,27 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		
 		if (imminentOptionsRestore){
 			formatOptionsFragment=FormatOptionsFragment.newInstance(format,state);
-			state=null;
-			imminentOptionsRestore=false;
 		} else {
 			formatOptionsFragment=FormatOptionsFragment.newInstance(format,null);
 		}
 		
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-		fragmentTransaction.replace(R.id.format_frame, formatOptionsFragment);
+		fragmentTransaction.replace(R.id.format_frame, formatOptionsFragment);	
 		fragmentTransaction.commit();
+		
+		if (imminentOptionsRestore){
+			boolean preferencesShowing=state.getBoolean("preferencesShowing");
+			
+			imminentOptionsRestore=false;
+			state=null;
+			
+			if (preferencesShowing){
+			    FragmentTransaction transaction0 = getFragmentManager().beginTransaction();
+			    transaction0.add(R.id.main_activity_container,audioEncoderPreferenceFragment);
+			    transaction0.addToBackStack(null);
+			    transaction0.commit();
+			}
+		} 
 	}
 	
 	public void onEncodeClicked(View view){
@@ -242,16 +281,18 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 			cmd.add(filePathFragment.getInputPath());
 			
 			formatOptionsFragment.getArgs(cmd);
-			
+
 			cmd.add(filePathFragment.getOutputPath());
 			
-	
+			 
 			String total="";
 			for (String s : cmd){
 				total+=s+" ";
 			}
+			
 			 
 			Log.d("onEncodeClicked",total);
+			
 			
 			encodeTask=new EncodeTask(cmd,controller,this);
 			Thread thread = new Thread(encodeTask);
@@ -286,11 +327,12 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 				encodeTask.removeEncodeTaskCallbacks();
 			} catch (Exception e){}
 		}
-	}
-	
-	@Override
-	public void onSaveInstanceState(Bundle savedInstanceState) {
-		saveState(savedInstanceState);
+		
+		boolean preferencesShowing=audioEncoderPreferenceFragment.isVisible();
+		
+		if (preferencesShowing){
+			getFragmentManager().popBackStackImmediate();
+		}
 		
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 		fragmentTransaction.remove(filePathFragment);
@@ -298,7 +340,45 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		fragmentTransaction.remove(formatOptionsFragment);
 		fragmentTransaction.commit();
 		
+		state.putBoolean("preferencesShowing", preferencesShowing);
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		saveState(savedInstanceState);
+		
 		super.onSaveInstanceState(savedInstanceState);
+	}
+	
+	@Override
+	public void showLicenseFragment(Licenses license) {
+		LicenseDialogFragment licenseDialogFragment = LicenseDialogFragment.newInstance(license);
+    	licenseDialogFragment.show(getFragmentManager(),"licenseDialog");
+	}
+
+	@Override
+	public void updateOrientation(Boolean newValue) {
+		if (newValue){
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		} else {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+		}	
+	}
+
+	@Override
+	public void doRecreateActivity() {
+		Bundle state = new Bundle();
+		saveState(state);
+		MainActivity.state=state;
+		
+		Intent intent = getIntent();
+		
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		finish();
+		overridePendingTransition(0, 0);
+		
+		startActivity(intent);		
+		overridePendingTransition(0, 0);
 	}
 	
 }

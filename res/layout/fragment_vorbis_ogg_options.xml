@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>	
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    
+        <TextView
+            android:id="@+id/vorbisOggMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/vorbisOggBitrateMode"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/mode"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    
+       <RadioGroup
+	        android:id="@+id/vorbisOggBitrateMode"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentRight="true"
+	        android:paddingTop="5dp"
+	        android:layout_toRightOf="@+id/vorbisOggMode"
+	        android:orientation="horizontal" >
+
+	        <RadioButton
+	            android:id="@+id/vorbisOggVbr"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/radio_vbr" 
+	            android:textSize="15sp"/>
+	
+	        <RadioButton
+	            android:id="@+id/vorbisOggAbr"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/radio_abr" 
+	            android:textSize="15sp"/>
+	        
+   	 	</RadioGroup>
+
+        <TextView
+            android:id="@+id/vorbisOggModeFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/vorbisOggMode"
+            android:gravity="center_vertical"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/vorbisOggBitrateProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:layout_alignBottom="@+id/vorbisOggModeFull"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/vorbisOggBitrateMode"
+            android:layout_toRightOf="@+id/vorbisOggModeFull"
+			android:gravity="center_vertical"
+			android:textSize="15sp"/>
+
+        <SeekBar
+            android:id="@+id/vorbisOggBitrateSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/vorbisOggModeFull" />
+
+        <TextView
+            android:id="@+id/vorbisOggBitrateLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/vorbisOggBitrateSeekBar"
+            android:gravity="center_vertical|left"
+            android:textSize="12sp"
+            android:text="@string/bitrate_low" />
+
+        <TextView
+            android:id="@+id/vorbisOggBitrateHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/vorbisOggBitrateSeekBar"
+            android:layout_toRightOf="@+id/vorbisOggBitrateLow"
+            android:layout_alignBottom="@+id/vorbisOggBitrateLow"
+            android:gravity="center_vertical|right"
+            android:textSize="12sp"
+            android:text="@string/bitrate_high" />
+        
+		
+
+        <TextView
+            android:id="@+id/vorbisOggSampleRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/vorbisOggSampleRateSpinner"
+            android:layout_below="@+id/vorbisOggBitrateLow"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="@string/audio_sample_rate" />
+
+        <Spinner
+            android:id="@+id/vorbisOggSampleRateSpinner"
+            android:paddingTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vorbisOggBitrateLow"
+            android:layout_toRightOf="@+id/vorbisOggSampleRate"
+            android:paddingRight="8dp" />
+
+        <TextView
+            android:id="@+id/vorbisOggChannels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/vorbisOggChannelsSpinner"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/vorbisOggSampleRate"
+            android:layout_below="@+id/vorbisOggSampleRate"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/audio_channels"
+            android:textSize="16sp" />
+        
+		<Spinner
+            android:id="@+id/vorbisOggChannelsSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_below="@+id/vorbisOggSampleRateSpinner"
+            android:layout_toRightOf="@+id/vorbisOggChannels"
+            android:layout_alignRight="@+id/vorbisOggSampleRateSpinner" />
+
+</RelativeLayout>

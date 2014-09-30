@@ -23,6 +23,7 @@ public abstract class FormatOptionsFragment extends Fragment{
 			formatOptionsFragment = new LameMp3OptionsFragment();
 			break;
 		case VORBIS_OGG:
+			formatOptionsFragment = new VorbisOggOptionsFragment();
 			break;
 		case PCM_WAVE:
 			formatOptionsFragment = new PcmWavOptionsFragment();

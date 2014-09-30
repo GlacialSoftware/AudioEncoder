@@ -1,0 +1,51 @@
+<PreferenceScreen 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory 
+    	android:title="@string/title_preferences" >
+    	
+    	<CheckBoxPreference
+    	    	android:key="tilt_lock"
+    	    	android:title="@string/title_tilt_lock_checkbox_preference"
+    	    	android:summary="@string/summary_tilt_lock_checkbox_preference"
+    	    	android:persistent="true" 
+    	    	android:enabled="true"/>
+    	
+		<ListPreference
+		    android:key="theme_select"
+		    android:entries="@array/themeSelect"
+		    android:entryValues="@array/themeSelectValues"
+		    android:summary="@string/summary_theme_select"
+		    android:title="@string/title_theme_select" 
+		    android:defaultValue="Light"/>
+		    
+    	    	
+	</PreferenceCategory>
+	
+    <PreferenceCategory
+	    android:title="@string/title_licenses" >
+        
+    	<Preference 
+    	    android:key="license_ffmpeg"
+    	    android:title="@string/title_license_ffmpeg" 
+    	    android:summary="@string/summary_license_ffmpeg"/>
+    	
+		<Preference 
+    	    android:key="license_lame"
+    	    android:title="@string/title_license_lame" 
+    	    android:summary="@string/summary_license_lame"/>
+    	    	
+		<Preference 
+    	    android:key="license_vorbis"
+    	    android:title="@string/title_license_vorbis" 
+    	    android:summary="@string/summary_license_vorbis"/>
+    	    	    	
+		<Preference 
+    	    android:key="license_ogg"
+    	    android:title="@string/title_license_ogg" 
+    	    android:summary="@string/summary_license_ogg"/>
+        
+    </PreferenceCategory>
+	
+	
+</PreferenceScreen>

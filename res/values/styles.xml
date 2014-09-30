@@ -16,5 +16,8 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+		<style name="lightTheme" parent="android:Theme.Light"/>
+        <style name="darkTheme" parent="android:Theme.Black"/>
 
 </resources>

@@ -6,8 +6,10 @@ import com.glacialsoftware.audioencoder.MainActivity.FileFormat;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,7 @@ public class FilePathFragment extends Fragment {
 	private static String[] extensions = {".aac",".flac",".mp3",".ogg",".wav",".wv"};
 	private static boolean[] isLossless = {false,true,false,false,true,true};
 	private static FileFormat[] formats = {FileFormat.AAC,FileFormat.FLAC,FileFormat.LAME_MP3,
-		FileFormat.PCM_WAVE,FileFormat.WAVPACK};
+		FileFormat.VORBIS_OGG, FileFormat.PCM_WAVE,FileFormat.WAVPACK};
 	
 	private String currentExtension;
 	

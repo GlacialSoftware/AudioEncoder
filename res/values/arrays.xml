@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+	<string-array name="themeSelect">
+        <item name="Light">Light</item>
+        <item name="Dark">Dark</item>
+    </string-array>
+    
+    <string-array name="themeSelectValues">
+        <item name="Light">Light</item>
+        <item name="Dark">Dark</item>
+    </string-array>
+    
 	<string-array name="formats_array">
         <item>aac</item>
         <item>flac</item>
         <item>mp3 [Lame]</item>
+		<item>ogg [Vorbis]</item>
         <item>wav [PCM]</item>
         <item>wv  [WavPack]</item>
     </string-array>
@@ -107,6 +118,48 @@
         <item>32 bit</item>
         <item>32 bit float</item>
 		<item>64 bit float</item>
+    </string-array>
+    
+	<string-array name="vorbis_ogg_sample_rates_full">
+        <item>Source</item>
+        <item>8000 Hz</item>
+        <item>11025 Hz</item>
+        <item>12000 Hz</item>
+        <item>16000 Hz</item>
+        <item>22050 Hz</item>
+        <item>24000 Hz</item>
+        <item>32000 Hz</item>
+        <item>44100 Hz</item>
+        <item>48000 Hz</item>
+        <item>64000 Hz</item>
+        <item>88200 Hz</item>
+        <item>96000 Hz</item>
+        <item>192000 Hz</item>
+    </string-array>
+    
+	<string-array name="vorbis_ogg_sample_rates_abr_stereo">
+        <item>Source</item>
+        <item>8000 Hz</item>
+        <item>11025 Hz</item>
+        <item>12000 Hz</item>
+        <item>16000 Hz</item>
+        <item>22050 Hz</item>
+        <item>24000 Hz</item>
+        <item>32000 Hz</item>
+        <item>44100 Hz</item>
+        <item>48000 Hz</item>
+    </string-array>
+    
+	<string-array name="vorbis_ogg_sample_rates_abr_mono">
+        <item>Source</item>
+        <item>11025 Hz</item>
+        <item>12000 Hz</item>
+        <item>16000 Hz</item>
+        <item>22050 Hz</item>
+        <item>24000 Hz</item>
+        <item>32000 Hz</item>
+        <item>44100 Hz</item>
+        <item>48000 Hz</item>
     </string-array>
     
 </resources>

@@ -2,7 +2,9 @@ package com.glacialsoftware.audioencoder;
 
 import java.util.List;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

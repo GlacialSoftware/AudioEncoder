@@ -31,5 +31,19 @@
 	<string name="compression_high">Highest compression, slow</string>
 	<string name="compression_low">Lowest compression, fast</string>
 	<string name="bit_depth">Bit depth:</string>
+    <string name="title_preferences">Preferences</string>
+    <string name="title_tilt_lock_checkbox_preference">Tilt lock</string>
+    <string name="summary_tilt_lock_checkbox_preference">Prevents orientation change</string>
+	<string name="title_theme_select">Select theme</string>
+	<string name="summary_theme_select">Choose light or dark theme</string>
+	<string name="title_licenses">Licenses</string>
+    <string name="title_license_ffmpeg">Fabrice Bellard - FFmpeg</string>
+    <string name="summary_license_ffmpeg">GNU Lesser General Public License (LGPL) version 2.1</string>
+    <string name="title_license_lame">www.mp3dev.org - LAME</string>
+    <string name="summary_license_lame">GNU Lesser General Public License (LGPL)</string>
+	<string name="title_license_vorbis">Xiph.org - Vorbis</string>
+    <string name="summary_license_vorbis">BSD 3-Clause</string>
+    <string name="title_license_ogg">Xiph.org - OGG</string>
+    <string name="summary_license_ogg">BSD 3-Clause</string>
 	
 </resources>
