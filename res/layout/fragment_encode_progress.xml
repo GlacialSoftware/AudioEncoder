@@ -12,8 +12,7 @@
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:onClick="onEncodeClicked"
-        android:text="@string/button_encode" 
-        style="?android:attr/borderlessButtonStyle" />
+        android:text="@string/button_encode"  />
 	
 	<RelativeLayout
 	     android:layout_width="match_parent"

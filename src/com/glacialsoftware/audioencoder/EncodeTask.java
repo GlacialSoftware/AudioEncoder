@@ -1,14 +1,11 @@
 package com.glacialsoftware.audioencoder;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
-import org.ffmpeg.android.FfmpegController;
-import org.ffmpeg.android.ShellUtils;
-import org.ffmpeg.android.ShellUtils.ShellCallback;
 
 import android.content.Context;
 import android.os.Handler;
@@ -21,9 +18,12 @@ public class EncodeTask implements Runnable{
 	private Thread thread=null;
 	private Process process=null;
 	private List<String> cmd;
-	private ShellCallback sc;
 	private FfmpegController controller;
 	private Handler handler;
+	
+	private Pattern durationPattern=Pattern.compile("(?<=Duration: )[^,]*");
+	private Pattern timePattern = Pattern.compile("(?<=time=)[\\d:.]*");
+	private Double duration =null;
 	
 	private Object mutexEncodeTaskCallbacks = new Object();
 	
@@ -101,59 +101,56 @@ public class EncodeTask implements Runnable{
 	}
 	
 	private boolean setupProcess(){
-		ShellCallback sc = new ShellUtils.ShellCallback() {
-			
-			private Pattern durationPattern=Pattern.compile("(?<=Duration: )[^,]*");
-			private Pattern timePattern = Pattern.compile("(?<=time=)[\\d:.]*");
-			private Double duration =null;
-			
-			@Override
-			public void shellOut(String shellLine) {
-				Matcher matcher;
-				if (duration==null){
-					matcher = durationPattern.matcher(shellLine);
-					if (matcher.find()){
-						String[] hms = matcher.group().split(":");
-				        duration = (Integer.parseInt(hms[0]) * 3600)
-		                           + (Integer.parseInt(hms[1]) * 60)
-		                           + (Double.parseDouble(hms[2]));
-					}
-					
-				} else {
-					matcher=timePattern.matcher(shellLine);
-					if (matcher.find()){
-						String[] hms = matcher.group().split(":");
-						Double progress = (((Integer.parseInt(hms[0]) * 3600)
-		                                  + (Integer.parseInt(hms[1]) * 60)
-		                                  + (Double.parseDouble(hms[2])))
-		                                  / duration) * 100;
-						
-						Message message = handler.obtainMessage(HandlerCode.PROGRESS_UPDATE.ordinal(),
-								progress.intValue(),0);
-						handler.sendMessage(message);
-					}
-				}
-				
-				
-				Log.d("shellOut",shellLine);
-			}
+		process = controller.execute(cmd);
+		if (process==null){
+			return false;
+		}
+		
+		Runnable errorStream = new Runnable() {
 			
 			@Override
-			public void processComplete(int exitValue) {
-			
-				Log.d("processComplete",Integer.toString(exitValue));
+			public void run() {
+	            BufferedReader bufferedReader = new BufferedReader(
+	            		new InputStreamReader(process.getErrorStream()));
+	            
+	            String shellLine=null;
+	            try{
+		            while ((shellLine = bufferedReader.readLine()) != null){
+						Matcher matcher;
+						if (duration==null){
+							matcher = durationPattern.matcher(shellLine);
+							if (matcher.find()){
+								String[] hms = matcher.group().split(":");
+						        duration = (Integer.parseInt(hms[0]) * 3600)
+				                           + (Integer.parseInt(hms[1]) * 60)
+				                           + (Double.parseDouble(hms[2]));
+							}
+							
+						} else {
+							matcher=timePattern.matcher(shellLine);
+							if (matcher.find()){
+								String[] hms = matcher.group().split(":");
+								Double progress = (((Integer.parseInt(hms[0]) * 3600)
+				                                  + (Integer.parseInt(hms[1]) * 60)
+				                                  + (Double.parseDouble(hms[2])))
+				                                  / duration) * 100;
+								
+								Message message = handler.obtainMessage(HandlerCode.PROGRESS_UPDATE.ordinal(),
+										progress.intValue(),0);
+								handler.sendMessage(message);
+							}
+						}
+						Log.d("shellOut",shellLine);
+		            }
+	            } catch (Exception e){
+	            	Log.e("AudioEncoder_errorStream", "error reading shell error stream");
+	            }
 			}
 		};
 		
-		try {
-			process=controller.execFFMPEG(cmd,sc);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			return false;
-		}
+		Thread thread = new Thread(errorStream);
+		thread.start();
+		
 		return true;
 	}
 	

@@ -3,6 +3,7 @@ package com.glacialsoftware.audioencoder;
 import android.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ public class EncodeProgressFragment extends Fragment{
 	private Button encodeButton=null;
 	private ProgressBar progressBar=null;
 	private ImageButton encodeCancel=null;
+	private boolean shouldBegin=false;
 	
 	
 	@Override
@@ -31,9 +33,17 @@ public class EncodeProgressFragment extends Fragment{
 		progressBar=(ProgressBar) getView().findViewById(R.id.encodeProgressBar);
 		encodeCancel=(ImageButton)getView().findViewById(R.id.encodeCancel);
 		
+		if (shouldBegin){
+			shouldBegin=false;
+			progressBegin();
+		}
 	}
 	
 	public void progressBegin(){
+		if (progressBar==null){
+			shouldBegin=true;
+			return;
+		}
 		progressBar.setProgress(0);
 		encodeButton.setVisibility(View.INVISIBLE);
 		progressBar.setVisibility(View.VISIBLE);

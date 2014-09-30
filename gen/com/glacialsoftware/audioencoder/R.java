@@ -1004,13 +1004,12 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int ic_action_search=0x7f020057;
-        public static final int ic_cancel=0x7f020058;
-        public static final int ic_chooser=0x7f020059;
-        public static final int ic_file=0x7f02005a;
-        public static final int ic_folder=0x7f02005b;
-        public static final int ic_launcher=0x7f02005c;
-        public static final int ic_provider=0x7f02005d;
+        public static final int ic_cancel=0x7f020057;
+        public static final int ic_chooser=0x7f020058;
+        public static final int ic_file=0x7f020059;
+        public static final int ic_folder=0x7f02005a;
+        public static final int ic_launcher=0x7f02005b;
+        public static final int ic_provider=0x7f02005c;
     }
     public static final class id {
         public static final int aacAlgorithmHigh=0x7f0b004e;
@@ -1351,11 +1350,11 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0a0085;
+        public static final int AppBaseTheme=0x7f0a0084;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f0a0084;
+        public static final int AppTheme=0x7f0a0085;
         /**  Mimic text appearance in select_dialog_item.xml 
          */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0a0064;

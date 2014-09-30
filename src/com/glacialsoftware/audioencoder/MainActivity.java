@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ffmpeg.android.FfmpegController;
-
 import com.glacialsoftware.audioencoder.LicenseDialogFragment.Licenses;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
@@ -67,13 +65,7 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		setContentView(R.layout.activity_main);
 		
 		if (controller==null){
-			try {
-				controller=new FfmpegController(this,getFilesDir());
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			controller=FfmpegController.newInstance(this);
 		}
 		
 		if (savedInstanceState!=null){
@@ -111,10 +103,12 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		}
 		
 		if (shouldCancel){
+			getFragmentManager().executePendingTransactions();
 			cancel();
 			shouldCancel=false;
 		}
 		if (encodeTask!=null){
+			getFragmentManager().executePendingTransactions();
 			encodeProgressFragment.progressBegin();
 			try{
 				encodeTask.updateEncodeTaskCallbacks(this);
@@ -140,10 +134,12 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		}
 		
 		if (shouldCancel){
+			getFragmentManager().executePendingTransactions();
 			cancel();
 			shouldCancel=false;
 		}
 		if (encodeTask!=null){
+			getFragmentManager().executePendingTransactions();
 			encodeProgressFragment.progressBegin();
 			try{
 				encodeTask.updateEncodeTaskCallbacks(this);
@@ -273,9 +269,7 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 			List<String> cmd = new ArrayList<String>();
 			cmd.add(controller.getBinaryPath());
 			
-			//cmd.add("-encoders");
-			
-			
+			cmd.add("-y");
 			
 			cmd.add("-i");
 			cmd.add(filePathFragment.getInputPath());
@@ -284,7 +278,6 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 
 			cmd.add(filePathFragment.getOutputPath());
 			
-			 
 			String total="";
 			for (String s : cmd){
 				total+=s+" ";
