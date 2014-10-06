@@ -2,9 +2,7 @@ package com.glacialsoftware.audioencoder;
 
 import java.util.List;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +24,7 @@ public class AacOptionsFragment extends FormatOptionsFragment{
 	private SeekBar aacAlgorithmQualitySeekBar;
 	private Spinner aacSampleRateSpinner;
 	private Spinner aacChannelsSpinner;
-	//blah
+
 	private static int[] bitrates = {32,64,80,96,112,128,160,192,224,256,288,320,384,425,529,576};
 	private static double[] vbrQualities = {0.1,0.5,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,13.0,16.0};
 	private static int[] sampleRates = {8000,11025,12000,16000,22050,24000,32000,44100,48000,64000,88200,96000};
