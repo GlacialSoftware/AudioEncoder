@@ -44,6 +44,11 @@
     	    android:key="license_ogg"
     	    android:title="@string/title_license_ogg" 
     	    android:summary="@string/summary_license_ogg"/>
+		
+		<Preference 
+    	    android:key="license_file_chooser"
+    	    android:title="@string/title_license_file_chooser" 
+    	    android:summary="@string/summary_license_file_chooser"/>
         
     </PreferenceCategory>
 	

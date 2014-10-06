@@ -69,6 +69,16 @@ public class AudioEncoderPreferenceFragment extends PreferenceFragment implement
         		return true;
             }
         });  
+        
+        Preference fileChooserLicenseButton = (Preference)getPreferenceManager().findPreference("license_file_chooser");      
+        fileChooserLicenseButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        	
+            @Override
+            public boolean onPreferenceClick(Preference preference) {  
+            	preferenceCallbacks.showLicenseFragment(Licenses.FILE_CHOOSER);
+        		return true;
+            }
+        }); 
 
     }
     

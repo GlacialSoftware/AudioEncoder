@@ -51,7 +51,7 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		String theme=PreferenceManager.getDefaultSharedPreferences(this).getString("theme_select", "Light");
+		String theme=PreferenceManager.getDefaultSharedPreferences(this).getString("theme_select", "Dark");
 		if (theme.equals("Light")){
 			setTheme(R.style.lightTheme);
 			currentTheme=theme;

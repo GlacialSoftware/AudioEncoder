@@ -496,12 +496,14 @@ int string radio_single_file 0x7f090014
 int string radio_vbr 0x7f09001e
 int string storage_removed 0x7f090001
 int string summary_license_ffmpeg 0x7f090037
+int string summary_license_file_chooser 0x7f09003f
 int string summary_license_lame 0x7f090039
 int string summary_license_ogg 0x7f09003d
 int string summary_license_vorbis 0x7f09003b
 int string summary_theme_select 0x7f090034
 int string summary_tilt_lock_checkbox_preference 0x7f090032
 int string title_license_ffmpeg 0x7f090036
+int string title_license_file_chooser 0x7f09003e
 int string title_license_lame 0x7f090038
 int string title_license_ogg 0x7f09003c
 int string title_license_vorbis 0x7f09003a

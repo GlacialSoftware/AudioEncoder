@@ -1314,12 +1314,14 @@ containing a value of this type.
         public static final int radio_vbr=0x7f09001e;
         public static final int storage_removed=0x7f090001;
         public static final int summary_license_ffmpeg=0x7f090037;
+        public static final int summary_license_file_chooser=0x7f09003f;
         public static final int summary_license_lame=0x7f090039;
         public static final int summary_license_ogg=0x7f09003d;
         public static final int summary_license_vorbis=0x7f09003b;
         public static final int summary_theme_select=0x7f090034;
         public static final int summary_tilt_lock_checkbox_preference=0x7f090032;
         public static final int title_license_ffmpeg=0x7f090036;
+        public static final int title_license_file_chooser=0x7f09003e;
         public static final int title_license_lame=0x7f090038;
         public static final int title_license_ogg=0x7f09003c;
         public static final int title_license_vorbis=0x7f09003a;

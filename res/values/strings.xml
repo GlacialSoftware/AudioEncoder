@@ -45,5 +45,7 @@
     <string name="summary_license_vorbis">BSD 3-Clause</string>
     <string name="title_license_ogg">Xiph.org - OGG</string>
     <string name="summary_license_ogg">BSD 3-Clause</string>
+    <string name="title_license_file_chooser">Paul Burke - aFileChooser</string>
+    <string name="summary_license_file_chooser">Apache License, Version 2.0</string>
 	
 </resources>
