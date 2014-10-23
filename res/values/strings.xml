@@ -32,6 +32,8 @@
 	<string name="compression_low">Lowest compression, fast</string>
 	<string name="bit_depth">Bit depth:</string>
     <string name="title_preferences">Preferences</string>
+    <string name="title_delete_intermediate_checkbox_preference">Delete incomplete files</string>
+    <string name="summary_delete_intermediate_checkbox_preference">Remove partial files if cancelled or error occurs</string>
     <string name="title_tilt_lock_checkbox_preference">Tilt lock</string>
     <string name="summary_tilt_lock_checkbox_preference">Prevents orientation change</string>
 	<string name="title_theme_select">Select theme</string>
@@ -47,5 +49,8 @@
     <string name="summary_license_ogg">BSD 3-Clause</string>
     <string name="title_license_file_chooser">Paul Burke - aFileChooser</string>
     <string name="summary_license_file_chooser">Apache License, Version 2.0</string>
+    <string name="overwrite_file_dialog_yes">Yes</string>
+     <string name="overwrite_file_dialog_no">No</string>
+     <string name="encode_error_dialog_dismiss">Cancel</string>
 	
 </resources>

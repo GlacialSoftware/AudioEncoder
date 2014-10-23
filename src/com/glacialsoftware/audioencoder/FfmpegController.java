@@ -1,7 +1,6 @@
 package com.glacialsoftware.audioencoder;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,8 +8,9 @@ import java.io.InputStream;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
-public class FfmpegController {
+public class FfmpegController{
 	// procedure to initialize static library based on 
 	// guardianproject's android-ffmpeg-java library, heavily 
 	// modified to fit this controller class
@@ -18,12 +18,10 @@ public class FfmpegController {
 	private String binaryPath=null;
 	
 	public FfmpegController(Context context){
-		
 		File file = new File(context.getDir("bin", 0),"ffmpeg");
 		if (file.exists()){
 			file.delete();
 		}
-		
 		
 		FileOutputStream fileOutputStream;
 		try {

@@ -17,9 +17,9 @@ public final class R {
 	}
 	public static final class drawable {
 		public static final int ic_chooser = 0x7f020058;
-		public static final int ic_file = 0x7f020059;
-		public static final int ic_folder = 0x7f02005a;
-		public static final int ic_provider = 0x7f02005c;
+		public static final int ic_file = 0x7f02005a;
+		public static final int ic_folder = 0x7f02005b;
+		public static final int ic_provider = 0x7f02005d;
 	}
 	public static final class layout {
 		public static final int file = 0x7f030018;
@@ -32,7 +32,9 @@ public final class R {
 		public static final int storage_removed = 0x7f090001;
 	}
 	public static final class style {
+		public static final int darkTheme = 0x7f0a0002;
 		public static final int fileChooserName = 0x7f0a0000;
+		public static final int lightTheme = 0x7f0a0001;
 	}
 	public static final class xml {
 		public static final int mimetypes = 0x7f050000;

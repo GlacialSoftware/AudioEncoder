@@ -4,6 +4,14 @@
     <PreferenceCategory 
     	android:title="@string/title_preferences" >
     	
+		<CheckBoxPreference
+    	    	android:key="delete_intermediate"
+    	    	android:title="@string/title_delete_intermediate_checkbox_preference"
+    	    	android:summary="@string/summary_delete_intermediate_checkbox_preference"
+    	    	android:persistent="true" 
+    	    	android:enabled="true"
+    	    	android:defaultValue="true"/>
+    	
     	<CheckBoxPreference
     	    	android:key="tilt_lock"
     	    	android:title="@string/title_tilt_lock_checkbox_preference"
@@ -17,7 +25,7 @@
 		    android:entryValues="@array/themeSelectValues"
 		    android:summary="@string/summary_theme_select"
 		    android:title="@string/title_theme_select" 
-		    android:defaultValue="Light"/>
+		    android:defaultValue="Dark"/>
 		    
     	    	
 	</PreferenceCategory>

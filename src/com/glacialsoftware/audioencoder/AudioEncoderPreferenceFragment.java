@@ -20,6 +20,7 @@ public class AudioEncoderPreferenceFragment extends PreferenceFragment implement
 		public void updateOrientation(Boolean newValue);
 		public void showLicenseFragment(Licenses license);
 		public void doRecreateActivity();
+		public void updateIntermediate(boolean deleteIntermediate);
 	}
 	
 	private PreferenceCallbacks preferenceCallbacks;
@@ -113,6 +114,7 @@ public class AudioEncoderPreferenceFragment extends PreferenceFragment implement
 			String key) {
 
 		preferenceCallbacks.updateOrientation(sharedPreferences.getBoolean("tilt_lock", false));
+		preferenceCallbacks.updateIntermediate(sharedPreferences.getBoolean("delete_intermediate", true));
 		
 		String newTheme = sharedPreferences.getString("theme_select", "Light");
 		if (!newTheme.equals(MainActivity.currentTheme)){

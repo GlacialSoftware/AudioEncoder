@@ -1,19 +1,26 @@
 package com.glacialsoftware.audioencoder;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.glacialsoftware.audioencoder.EncodeService.CommCodes;
 import com.glacialsoftware.audioencoder.LicenseDialogFragment.Licenses;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -25,32 +32,111 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity implements FilePathFragment.FilePathCallbacks,
-													  EncodeTask.EncodeTaskCallbacks,
-													  AudioEncoderPreferenceFragment.PreferenceCallbacks{
+													  AudioEncoderPreferenceFragment.PreferenceCallbacks,
+													  OverwriteFileDialogFragment.InvalidFileDialogCallbacks{
 	
 	private static final int SINGLE_FILE_INPUT_CHOOSER = 1001;
 	private static final int SINGLE_FILE_OUTPUT_CHOOSER = 1010;
 	//private static final int BATCH_INPUT_CHOOSER = 1101;
 	//private static final int BATCH_OUTPUT_CHOOSER = 1110;
 	
-	private static FfmpegController controller = null;
-	private static EncodeTask encodeTask=null;
-	private static boolean encoding=false;
+	//private static FfmpegController controller = null;
 	private static Bundle state=null;
+	
+	private Messenger service=null;
+	private Messenger messenger = new Messenger(new IncomingHandler());
 	
 	public static boolean shouldCancel=false;
 	public static boolean imminentOptionsRestore=false;
-	public static String currentTheme="Light";
+	public static String currentTheme="Dark";
 	
 	private FilePathFragment filePathFragment;
 	private FormatOptionsFragment formatOptionsFragment;
 	private EncodeProgressFragment encodeProgressFragment;
 	private AudioEncoderPreferenceFragment audioEncoderPreferenceFragment;
+	private boolean bound=false;
+	//private EncodeService encodeService=null;
+	private static boolean encoding=false;
+	private String tempInFile=null;
 	
 	public enum FileFormat{AAC,FLAC,LAME_MP3,VORBIS_OGG,PCM_WAVE,WAVPACK}
+	
+    class IncomingHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+        	CommCodes code = CommCodes.values()[msg.what];
+
+        	switch (code){
+        	case CANCEL:
+        		cancel();
+        		break;
+        	case ENCODING:
+        		boolean encodingLocal = msg.getData().getBoolean("encoding");
+        		if (!encodingLocal && encoding){
+        			cancel();
+        		} else if (encodingLocal && !encoding){
+        			getFragmentManager().executePendingTransactions();
+        			encodeProgressFragment.progressBegin();
+        		}
+        		updateIntermediate(PreferenceManager.getDefaultSharedPreferences(
+        				MainActivity.this).getBoolean("delete_intermediate", true));
+        		break;
+        	case PROGRESS_UPDATE:
+        		try{
+        			encodeProgressFragment.updateProgressBar(msg.arg1);
+        		} catch (Exception e){}
+        		break;
+        	case ERROR:
+				EncodeErrorDialogFragment encodeErrorDialogFragment = new EncodeErrorDialogFragment();
+				encodeErrorDialogFragment.show(getFragmentManager(), "encodeErrorDialogFragment");
+        		break;
+        	default:
+        		super.handleMessage(msg);
+        	}
+        }
+    }
+    
+    
+	
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        public void onServiceConnected(ComponentName className, IBinder service) {
+        	MainActivity.this.service=new Messenger(service);
+        	bound=true;
+        	Message message = Message.obtain(null, CommCodes.ATTACH.ordinal());
+        	message.replyTo=messenger;
+        	try{
+        		MainActivity.this.service.send(message);
+        	} catch (Exception e){}
+        	
+        	
+        	/*
+            LocalBinder binder = (LocalBinder) service;
+            MainActivity.this.encodeService = (EncodeService) binder.getService();
+            bound = true;
+            encoding=encodeService.getEncodingLocal();
+            Log.d("onServiceConnected_encoding",Boolean.toString(encoding));
+    		if (encoding){
+	    		try{
+	    			getFragmentManager().executePendingTransactions();
+	    			encodeProgressFragment.progressBegin();
+	    			try{
+	    				encodeService.updateEncodeServiceCallbacks(getCurrentContext());
+	    			} catch (Exception e){}
+	    			encodeService.setController(controller);
+    			} catch (Exception e){}
+    		}
+    		*/
+        }
+
+        public void onServiceDisconnected(ComponentName className) {
+        	service=null;
+            bound = false;
+        }
+    };
+ 
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {		
 		String theme=PreferenceManager.getDefaultSharedPreferences(this).getString("theme_select", "Dark");
 		if (theme.equals("Light")){
 			setTheme(R.style.lightTheme);
@@ -64,9 +150,17 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+	    Intent intent = getIntent();
+	    if (Intent.ACTION_VIEW.equals(intent.getAction())){
+	    	Uri data = intent.getData();
+	    	tempInFile=data.getPath();
+	    }
+	    
+		/*
 		if (controller==null){
 			controller=FfmpegController.newInstance(this);
 		}
+		*/
 		
 		if (savedInstanceState!=null){
 			state=savedInstanceState;
@@ -88,7 +182,6 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 	protected void onStart (){
 		super.onStart();
 		
-		
 		getFragmentManager().executePendingTransactions();
 		RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.filePathRelativeLayout);
 		
@@ -102,17 +195,18 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 			fragmentTransaction.commit();
 		}
 		
+		Intent intent = new Intent(this,EncodeService.class);
+		bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+		
 		if (shouldCancel){
 			getFragmentManager().executePendingTransactions();
 			cancel();
 			shouldCancel=false;
 		}
-		if (encodeTask!=null){
+
+		if (encoding){
 			getFragmentManager().executePendingTransactions();
 			encodeProgressFragment.progressBegin();
-			try{
-				encodeTask.updateEncodeTaskCallbacks(this);
-			} catch (Exception e){}
 		}
 	}
 	
@@ -120,6 +214,11 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 	protected void onResume (){
 		super.onResume();
 		
+		if (tempInFile!=null){
+			filePathFragment.setInputPath(tempInFile);
+			tempInFile=null;
+		}
+		
 		getFragmentManager().executePendingTransactions();
 		RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.filePathRelativeLayout);
 		
@@ -138,14 +237,20 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 			cancel();
 			shouldCancel=false;
 		}
-		if (encodeTask!=null){
+		if (encoding){
 			getFragmentManager().executePendingTransactions();
 			encodeProgressFragment.progressBegin();
-			try{
-				encodeTask.updateEncodeTaskCallbacks(this);
-			} catch (Exception e){}
 		}
 	}
+	
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (bound) {
+            unbindService(serviceConnection);
+            bound = false;
+        }
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -190,10 +295,10 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 	public void onInputBrowserClicked(View view){
 	    Intent getContentIntent = FileUtils.createGetContentIntent();
 
-	    state=new Bundle();
-	    saveState(state);
+	    saveState(new Bundle());
 	    
 	    Intent intent = Intent.createChooser(getContentIntent, "Select a file");
+	    
 	    startActivityForResult(intent, SINGLE_FILE_INPUT_CHOOSER);
 	}
 	
@@ -258,52 +363,96 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		} 
 	}
 	
+	@Override
+	public void doEncode(){
+		List<String> cmd = new ArrayList<String>();
+		//cmd.add(controller.getBinaryPath());
+		
+		cmd.add("-y");
+		
+		cmd.add("-i");
+		cmd.add(filePathFragment.getInputPath());
+		
+		formatOptionsFragment.getArgs(cmd);
+		
+		cmd.add(filePathFragment.getOutputPath());
+
+		String total="";
+		for (int i=0;i<cmd.size();++i){
+			total+=cmd.get(i);
+			if (i!=cmd.size()-1){
+				total+=" ";
+			}
+		}
+		 
+		Log.d("doEncode",total);
+		
+		/*
+		Bundle bundle = new Bundle();
+		bundle.putStringArrayList("cmd", (ArrayList<String>)cmd);
+		Message message = Message.obtain(null,,bundle);
+		*/
+		
+		
+		Intent intent = new Intent(this,EncodeService.class);
+		//encodeService.setController(controller);
+		
+		intent.putExtra("cmd", (ArrayList<String>)cmd);
+		
+		startService(intent);
+	}
+	
 	public void onEncodeClicked(View view){
-		//TODO add '-y' option for overwrite after file exists dialog implemented
 		
 		if (!encoding){
-			encoding=true;
-	
+			encoding = true;
 			encodeProgressFragment.progressBegin();
-		
-			List<String> cmd = new ArrayList<String>();
-			cmd.add(controller.getBinaryPath());
 			
-			cmd.add("-y");
+			String outPath = filePathFragment.getOutputPath();
 			
-			cmd.add("-i");
-			cmd.add(filePathFragment.getInputPath());
-			
-			formatOptionsFragment.getArgs(cmd);
-
-			cmd.add(filePathFragment.getOutputPath());
-			
-			String total="";
-			for (String s : cmd){
-				total+=s+" ";
-			}
-			
-			 
-			Log.d("onEncodeClicked",total);
-			
-			
-			encodeTask=new EncodeTask(cmd,controller,this);
-			Thread thread = new Thread(encodeTask);
-			thread.start();
+			if (new File(outPath).exists()){
+				OverwriteFileDialogFragment overwriteFileDialogFragment = OverwriteFileDialogFragment.newInstance(outPath);
+				overwriteFileDialogFragment.show(getFragmentManager(), "overwriteFileDialogFragment");
+			} else {
+				doEncode();
+			}	
 		}
 	}
 
 	@Override
-	public void updateProgressBar(int progress) {
-		encodeProgressFragment.updateProgressBar(progress);
+	public void updateIntermediate(boolean deleteIntermediate){
+		if (bound){
+			Message message = Message.obtain(null,CommCodes.UPDATE_INTERMEDIATE.ordinal());
+    		Bundle bundle = new Bundle();
+    		bundle.putBoolean("deleteIntermediate", deleteIntermediate);
+    		message.setData(bundle);
+			if (service!=null){
+				try{
+					service.send(message);
+				} catch (Exception e){}
+			}
+		}
 	}
 	
 	@Override
 	public void cancel(){
-		if (encodeTask !=null){
-			encodeTask.cancel();
+		Log.d("MainActivity","Cancelled");
+		
+		/*
+		if (encoding){
+			encodeService.cancel();
 		}
-		encodeTask=null;
+		*/
+		
+		if (bound){
+			Message message = Message.obtain(null,CommCodes.CANCEL.ordinal());
+			if (service!=null){
+				try{
+					service.send(message);
+				} catch (Exception e){}
+			}
+		}
+		
 		encodeProgressFragment.progressFinish();
 		encoding=false;
 	}
@@ -315,11 +464,14 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 	private void saveState(Bundle state){
 		filePathFragment.saveState(state);
 		formatOptionsFragment.saveState(state);
-		if (encodeTask!=null){
+		
+		/*
+		if (encoding){
 			try{
-				encodeTask.removeEncodeTaskCallbacks();
+				encodeService.removeEncodeServiceCallbacks();
 			} catch (Exception e){}
 		}
+		*/
 		
 		boolean preferencesShowing=audioEncoderPreferenceFragment.isVisible();
 		
@@ -334,12 +486,12 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		fragmentTransaction.commit();
 		
 		state.putBoolean("preferencesShowing", preferencesShowing);
+		MainActivity.state=state;
 	}
 	
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		saveState(savedInstanceState);
-		
 		super.onSaveInstanceState(savedInstanceState);
 	}
 	
@@ -360,9 +512,7 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 
 	@Override
 	public void doRecreateActivity() {
-		Bundle state = new Bundle();
-		saveState(state);
-		MainActivity.state=state;
+		saveState(new Bundle());
 		
 		Intent intent = getIntent();
 		
@@ -373,5 +523,6 @@ public class MainActivity extends Activity implements FilePathFragment.FilePathC
 		startActivity(intent);		
 		overridePendingTransition(0, 0);
 	}
+
 	
 }

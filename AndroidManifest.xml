@@ -25,6 +25,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter >
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+   				<category android:name="android.intent.category.BROWSABLE" />
+   				
+   				<data android:mimeType="audio/*"/>
+            </intent-filter>
         </activity>
         <activity
 		    android:name="com.ipaulpro.afilechooser.FileChooserActivity"
@@ -41,6 +48,9 @@
 		        <data android:mimeType="*/*" />
 		    </intent-filter>
 		</activity>
+		<service 
+		    android:name="com.glacialsoftware.audioencoder.EncodeService" 
+		    android:process=":com.glacialsoftware.audioencoder.EncodeService"/>
     </application>
 
 </manifest>

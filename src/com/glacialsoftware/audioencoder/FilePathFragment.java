@@ -27,7 +27,7 @@ public class FilePathFragment extends Fragment {
 	private static FileFormat[] formats = {FileFormat.AAC,FileFormat.FLAC,FileFormat.LAME_MP3,
 		FileFormat.VORBIS_OGG, FileFormat.PCM_WAVE,FileFormat.WAVPACK};
 	
-	private String currentExtension;
+	private String currentExtension=".wav";
 	
 	private EditText inputFilePath;
 	private EditText outputFilePath;
@@ -132,7 +132,9 @@ public class FilePathFragment extends Fragment {
 	}
 	
 	private String changeExtensionToCurrent(String path){
-		return stripValidExtension(path)+currentExtension;
+		String stripped= stripValidExtension(path);
+		stripped=stripped+currentExtension;
+		return stripped;
 	}
 	
 	private String stripValidExtension(String path){
